@@ -1,104 +1,258 @@
-/* CSS Variables for Theme Management */
 :root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  --primary: #1976d2;
+  --accent: #ffb300;
+  --secondary: #fff;
+  --boardLine: #bbbbbb;
+  --success: #2e7d32;
+  --error: #d32f2f;
+  --light-gray: #f6f7fa;
 }
 
-[data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
-}
-
-.App {
-  text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
+/* Reset & typography */
+body, html, #root, .ttt-root {
+  margin: 0;
+  padding: 0;
+  background: var(--secondary);
+  color: #273044;
+  font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, "Liberation Sans", sans-serif;
   min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.ttt-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--secondary);
+  border-bottom: 1.5px solid var(--primary);
+  padding: 0 18px;
+  height: 56px;
+  position: sticky;
+  top: 0;
+  z-index: 8;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.ttt-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
 }
+.ttt-navbar-btn {
+  background: var(--accent);
+  color: #373737;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 16px;
+  margin-left: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  transition: background 0.2s;
+}
+.ttt-navbar-btn:hover { background: #ffe08b; }
+.ttt-navbar-btn-text { margin-left: 6px; }
 
-.App-header {
-  background-color: var(--bg-secondary);
-  min-height: 100vh;
+.ttt-main {
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  max-width: 1080px;
+  min-height: 70vh;
+  gap: 1.5rem;
+  background: transparent;
+}
+.ttt-main-content {
+  flex: 3;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
-  position: relative;
+  background: transparent;
+  padding: 2vh 2vw;
+}
+.ttt-sidebar {
+  flex: 2;
+  padding: 2vh 0.5vw;
+  border-left: 1.2px solid #ececec;
+  min-width: 250px;
+}
+@media (max-width: 700px) {
+  .ttt-main { flex-direction: column; }
+  .ttt-sidebar { display: none; }
 }
 
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
+.ttt-actions-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
 }
-
-.theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
+.ttt-action-btn {
+  background: var(--primary);
+  color: var(--secondary);
+  font-weight: bold;
+  font-size: 1.1rem;
   border: none;
   border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 600;
+  padding: 0.6em 1.6em;
+  margin-bottom: 4px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background 0.18s;
+}
+.ttt-action-btn:active { filter: brightness(97%) }
+.ttt-role-label {
+  font-size: 1.04em;
+  margin-left: 12px;
+  color: #505050;
 }
 
-.theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
+/* Board styling */
+.ttt-board-container {
+  margin: 24px 0 8px 0;
+  display: flex;
+  justify-content: center;
+}
+.ttt-board-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(46px, 74px));
+  grid-template-rows: repeat(3, minmax(46px, 74px));
+  gap: 4px;
+  background: var(--boardLine);
+  border-radius: 18px;
+  padding: 12px;
+}
+.ttt-board-cell {
+  aspect-ratio: 1/1;
+  width: 60px;
+  max-width: 18vw;
+  background: var(--secondary);
+  border: 2px solid var(--primary);
+  border-radius: 12px;
+  font-size: 2.2em;
+  font-weight: bolder;
+  box-shadow: 0 1px 4px rgba(32,32,32,0.07);
+  cursor: pointer;
+  transition: border 0.15s, background 0.16s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ttt-board-cell:disabled {
+  background: #f4f3ec;
+  color: #b7b7b7;
+  cursor: not-allowed;
+}
+@media (max-width: 600px) {
+  .ttt-board-grid { grid-template-columns: repeat(3, 22vw); grid-template-rows: repeat(3, 22vw); }
 }
 
-.theme-toggle:active {
-  transform: translateY(0);
+/* Move History */
+.ttt-history-panel, .ttt-allgames-panel {
+  background: var(--light-gray);
+  margin: 18px 2px 0 2px;
+  border-radius: 12px;
+  box-shadow: 0 0.5px 2px #d0dee785;
+  padding: 15px 18px;
+  min-width: 210px;
+  width: 100%;
+}
+.ttt-history-title {
+  font-weight: bold;
+  color: var(--primary);
+  font-size: 1.09em;
+  margin-bottom: 6px;
+  letter-spacing: 0.6px;
+}
+.ttt-history-list, .ttt-game-records-list {
+  list-style: decimal inside;
+  padding: 0;
+  margin: 0;
+}
+.ttt-history-empty { color: #b3b3b3; font-size: .97em; }
+
+.ttt-game-record {
+  margin: 5px 0;
+  padding-bottom: 2px;
+  border-bottom: 1px dotted #e8eae0;
+  display: flex;
+  flex-direction: row;
+  gap: 14px;
+  align-items: center;
+}
+.ttt-game-id {
+  font-size: 0.92em;
+  color: #96b5e4;
+  margin-right: 2px;
+  letter-spacing: .3px;
+}
+.ttt-game-status {
+  font-size: .98em;
+  font-weight: 600;
+}
+.ttt-game-times {
+  color: #888;
+  font-size: 0.93em;
+  margin-left: auto;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Drawer for mobile */
+.ttt-drawer-bg {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(32,41,66,0.16);
+  z-index: 12;
+}
+.ttt-drawer {
+  position: fixed;
+  top: 0;
+  right: -340px;
+  width: 320px;
+  max-width: 87vw;
+  height: 100vh;
+  background: var(--light-gray);
+  box-shadow: -5px 0 16px #2c2c2c0b;
+  z-index: 16;
+  transition: right 0.26s cubic-bezier(.71,.09,.91,.88);
+  overflow-y: auto;
+  padding: 12px 4px 8px 8px;
+  border-top-left-radius: 18px;
+  border-bottom-left-radius: 18px;
+}
+.ttt-drawer-open { right: 0 !important; }
+.ttt-drawer-close {
+  position: absolute;
+  top: 5px; right: 11px;
+  border: none;
+  background: var(--accent);
+  color: #333;
+  font-size: 1.5em;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px #eeb23138;
 }
 
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
-  }
+@media (max-width: 700px) {
+  .ttt-main { flex-direction: column; }
+  .ttt-sidebar { display: none; }
+}
+@media (max-width: 440px) {
+  .ttt-board-cell { font-size: 1.38em; min-width: 37px; }
+  .ttt-board-grid { padding: 3px; }
+  .ttt-history-panel, .ttt-allgames-panel { padding: 4px 4px; }
+}
+
+/* Banner, messages, footer */
+.ttt-msg-banner {
+  margin: 9px 2px 4px 2px;
+  padding: 6px 14px;
+  border-radius: 9px;
+  font-size: 0.97em;
+}
+.ttt-footer {
+  text-align: center;
+  font-size: 1em;
+  color: #888;
+  padding: 12px;
+  margin-top: 40px;
 }
